@@ -12,12 +12,36 @@ class AccountScreen extends StatelessWidget {
   AccountScreen({super.key});
 
   Future<void> logout(BuildContext context) async {
-    await clearToken();
-    await emaildelete();
-    Navigator.pushAndRemoveUntil(
-      context,
-      MaterialPageRoute(builder: (context) => const LoginScreen()),
-      (Route<dynamic> route) => false,
+    showDialog(
+      context: context,
+      builder: (BuildContext context) {
+        return AlertDialog(
+          title: const Text('Confirm Logout'),
+          content: const Text('Are you sure you want to log out?'),
+          actions: <Widget>[
+            TextButton(
+              child: const Text('Cancel'),
+              onPressed: () {
+                Navigator.of(context).pop();
+              },
+            ),
+            TextButton(
+              child: const Text('Logout'),
+              onPressed: () async {
+                Navigator.of(context).pop();
+
+                await clearToken();
+                await emaildelete();
+                Navigator.pushAndRemoveUntil(
+                  context,
+                  MaterialPageRoute(builder: (context) => const LoginScreen()),
+                  (Route<dynamic> route) => false,
+                );
+              },
+            ),
+          ],
+        );
+      },
     );
   }
 
@@ -62,49 +86,49 @@ class AccountScreen extends StatelessWidget {
               ],
             ),
             const SizedBox(height: 20),
-            ElevatedButton(
-              onPressed: () {},
-              style: ElevatedButton.styleFrom(
-                backgroundColor: const Color(0xFF2C2C2C),
-                shape: RoundedRectangleBorder(
-                  borderRadius: BorderRadius.circular(8.0),
-                ),
-                padding: EdgeInsets.symmetric(
-                  vertical: screenHeight * 0.02,
-                  horizontal: screenWidth * 0.25,
-                ),
-              ),
-              child: Text(
-                "Settings",
-                style: GoogleFonts.roboto(
-                  fontSize: screenWidth * 0.05,
-                  fontWeight: FontWeight.bold,
-                  color: Colors.orangeAccent,
-                ),
-              ),
-            ),
-            const SizedBox(height: 20),
-            ElevatedButton(
-              onPressed: () {},
-              style: ElevatedButton.styleFrom(
-                backgroundColor: const Color(0xFF2C2C2C),
-                shape: RoundedRectangleBorder(
-                  borderRadius: BorderRadius.circular(8.0),
-                ),
-                padding: EdgeInsets.symmetric(
-                  vertical: screenHeight * 0.02,
-                  horizontal: screenWidth * 0.25,
-                ),
-              ),
-              child: Text(
-                "customer review",
-                style: GoogleFonts.roboto(
-                  fontSize: screenWidth * 0.05,
-                  fontWeight: FontWeight.bold,
-                  color: Colors.orangeAccent,
-                ),
-              ),
-            ),
+            // ElevatedButton(
+            //   onPressed: () {},
+            //   style: ElevatedButton.styleFrom(
+            //     backgroundColor: const Color(0xFF2C2C2C),
+            //     shape: RoundedRectangleBorder(
+            //       borderRadius: BorderRadius.circular(8.0),
+            //     ),
+            //     padding: EdgeInsets.symmetric(
+            //       vertical: screenHeight * 0.02,
+            //       horizontal: screenWidth * 0.25,
+            //     ),
+            //   ),
+            //   child: Text(
+            //     "Settings",
+            //     style: GoogleFonts.roboto(
+            //       fontSize: screenWidth * 0.05,
+            //       fontWeight: FontWeight.bold,
+            //       color: Colors.orangeAccent,
+            //     ),
+            //   ),
+            // ),
+            // const SizedBox(height: 20),
+            // ElevatedButton(
+            //   onPressed: () {},
+            //   style: ElevatedButton.styleFrom(
+            //     backgroundColor: const Color(0xFF2C2C2C),
+            //     shape: RoundedRectangleBorder(
+            //       borderRadius: BorderRadius.circular(8.0),
+            //     ),
+            //     padding: EdgeInsets.symmetric(
+            //       vertical: screenHeight * 0.02,
+            //       horizontal: screenWidth * 0.25,
+            //     ),
+            //   ),
+            //   child: Text(
+            //     "customer review",
+            //     style: GoogleFonts.roboto(
+            //       fontSize: screenWidth * 0.05,
+            //       fontWeight: FontWeight.bold,
+            //       color: Colors.orangeAccent,
+            //     ),
+            //   ),
+            // ),
             const SizedBox(height: 30),
             Spacer(),
             Align(
