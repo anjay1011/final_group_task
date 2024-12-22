@@ -1,7 +1,7 @@
 // import 'package:doctor_doom/recording/agorarecording.dart';
 import 'package:doctor_doom/appui/membersscreen.dart';
 import 'package:doctor_doom/chat/aichat.dart';
-import 'package:emoji_picker_flutter/emoji_picker_flutter.dart';
+// import 'package:emoji_picker_flutter/emoji_picker_flutter.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:google_fonts/google_fonts.dart';
@@ -43,10 +43,10 @@ class _AgoraScreenState extends ConsumerState<AgoraScreen> {
   bool isMicMuted = false;
   bool isCameraMuted = false;
   bool isRecording = false;
-  bool showEmojiPicker = false;
-  String? selectedEmoji;
-  String? emojiWithUserName;
-  List<String> emojiMessages = [];
+  // bool showEmojiPicker = false;
+  // String? selectedEmoji;
+  // String? emojiWithUserName;
+  // List<String> emojiMessages = [];
 
   double _localVideoX = 10.0;
   double _localVideoY = 10.0;
@@ -205,26 +205,26 @@ class _AgoraScreenState extends ConsumerState<AgoraScreen> {
     await _agoraEngine.switchCamera();
   }
 
-  void _toggleEmojiPicker() {
-    setState(() {
-      showEmojiPicker = !showEmojiPicker;
-    });
-    print("Emoji picker dabaya: $showEmojiPicker");
-  }
+  // void _toggleEmojiPicker() {
+  //   setState(() {
+  //     showEmojiPicker = !showEmojiPicker;
+  //   });
+  //   print("Emoji picker dabaya: $showEmojiPicker");
+  // }
 
-  void _onEmojiSelected(Emoji emoji) {
-    setState(() {
-      selectedEmoji = emoji.emoji;
+  // void _onEmojiSelected(Emoji emoji) {
+  //   setState(() {
+  //     selectedEmoji = emoji.emoji;
 
-      emojiMessages.add("${widget.userName} $selectedEmoji");
-    });
+  //     emojiMessages.add("${widget.userName} $selectedEmoji");
+  //   });
 
-    Future.delayed(Duration(seconds: 5), () {
-      setState(() {
-        emojiMessages.removeAt(0);
-      });
-    });
-  }
+  //   Future.delayed(Duration(seconds: 5), () {
+  //     setState(() {
+  //       emojiMessages.removeAt(0);
+  //     });
+  //   });
+  // }
 
   // Future<void> _acquireRecordingResource() async {
   //   try {
@@ -409,9 +409,10 @@ class _AgoraScreenState extends ConsumerState<AgoraScreen> {
                   if (!_isFullScreen) {
                     setState(() {
                       _localVideoX = (_localVideoX + details.delta.dx)
-                          .clamp(0.0, MediaQuery.of(context).size.width - 150);
+                          .clamp(7.0, MediaQuery.of(context).size.width - 170);
+
                       _localVideoY = (_localVideoY + details.delta.dy)
-                          .clamp(0.0, MediaQuery.of(context).size.height - 250);
+                          .clamp(7.0, MediaQuery.of(context).size.height - 420);
                     });
                   }
                 },
@@ -454,42 +455,42 @@ class _AgoraScreenState extends ConsumerState<AgoraScreen> {
                 ),
               ),
             ),
-            for (int i = 0; i < emojiMessages.length; i++)
-              Positioned(
-                top: 20 + (i * 40),
-                right: 20,
-                child: Container(
-                  padding: EdgeInsets.symmetric(horizontal: 10, vertical: 5),
-                  decoration: BoxDecoration(
-                    color: Color.fromARGB(255, 237, 216, 139),
-                    borderRadius: BorderRadius.circular(20),
-                  ),
-                  child: Text(
-                    emojiMessages[i],
-                    style: TextStyle(
-                      fontSize: 20,
-                      fontWeight: FontWeight.bold,
-                      color: Colors.black,
-                    ),
-                  ),
-                ),
-              ),
-            if (showEmojiPicker)
-              Positioned(
-                bottom: 0,
-                left: 0,
-                right: 0,
-                child: Container(
-                  child: EmojiPicker(
-                    onEmojiSelected: (category, emoji) {
-                      _onEmojiSelected(emoji);
-                    },
-                  ),
-                ),
-              ),
+            // for (int i = 0; i < emojiMessages.length; i++)
+            //   Positioned(
+            //     top: 20 + (i * 40),
+            //     right: 20,
+            //     child: Container(
+            //       padding: EdgeInsets.symmetric(horizontal: 10, vertical: 5),
+            //       decoration: BoxDecoration(
+            //         color: Color.fromARGB(255, 237, 216, 139),
+            //         borderRadius: BorderRadius.circular(20),
+            //       ),
+            //       child: Text(
+            //         emojiMessages[i],
+            //         style: TextStyle(
+            //           fontSize: 20,
+            //           fontWeight: FontWeight.bold,
+            //           color: Colors.black,
+            //         ),
+            //       ),
+            //     ),
+            //   ),
+            // if (showEmojiPicker)
+            //   Positioned(
+            //     bottom: 0,
+            //     left: 0,
+            //     right: 0,
+            //     child: Container(
+            //       child: EmojiPicker(
+            //         onEmojiSelected: (category, emoji) {
+            //           _onEmojiSelected(emoji);
+            //         },
+            //       ),
+            //     ),
+            //   ),
             Positioned(
               bottom: 15.0,
-              right: screenWidth * 0.4 - 138,
+              right: screenWidth * 0.4 - 130,
               child: GestureDetector(
                 onTap: () {
                   _agoraEngine.switchCamera();
@@ -548,16 +549,16 @@ class _AgoraScreenState extends ConsumerState<AgoraScreen> {
                   isActive: true,
                 ),
               ),
-              GestureDetector(
-                onTap: () {
-                  print("Emoji button dabaya");
-                  _toggleEmojiPicker();
-                },
-                child: _buildButton(
-                  icon: Icons.emoji_emotions,
-                  isActive: true,
-                ),
-              ),
+              // GestureDetector(
+              //   onTap: () {
+              //     print("Emoji button dabaya");
+              //     _toggleEmojiPicker();
+              //   },
+              //   child: _buildButton(
+              //     icon: Icons.emoji_emotions,
+              //     isActive: true,
+              //   ),
+              // ),
               GestureDetector(
                 onTap: () {
                   Navigator.push(
@@ -604,7 +605,7 @@ class _AgoraScreenState extends ConsumerState<AgoraScreen> {
       ),
       child: Icon(
         icon,
-        size: 30,
+        size: 32,
         color: isActive ? Colors.black : Colors.grey[600],
       ),
     );
